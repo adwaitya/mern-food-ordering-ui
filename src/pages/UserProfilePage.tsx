@@ -1,4 +1,4 @@
-import { useUpdateUser } from "@/api/User";
+import { useUpdateUser } from "@/api/UserApi";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 
 const UserProfilePage = () => {
