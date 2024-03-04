@@ -29,7 +29,7 @@ const { updateRestaurant, isLoading: isUpdateLoading } =
     <TabsContent value="manage-restaurant">
       <ManageRestaurantForm
         restaurant={restaurant}
-        onSave={createRestaurant}
+        onSave={isEditing ? updateRestaurant : createRestaurant}
         isLoading={isCreateLoading || isUpdateLoading}
       />
     </TabsContent>
