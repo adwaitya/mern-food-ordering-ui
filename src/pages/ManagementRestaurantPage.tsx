@@ -6,11 +6,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
 const ManagementRestaurantPage = () => {
   const { createRestaurant, isLoading: isCreateLoading } =
   useCreateRestaurant();
-// const { restaurant } = useGetRestaurant();
+const { restaurant } = useGetRestaurant();
 const { updateRestaurant, isLoading: isUpdateLoading } =
   useUpdateRestaurant();
 
-  // const isEditing = !!restaurant;
+  const isEditing = !!restaurant;
   return (
     <Tabs defaultValue="manage-restaurant">
     <TabsList>
@@ -28,7 +28,7 @@ const { updateRestaurant, isLoading: isUpdateLoading } =
     </TabsContent> */}
     <TabsContent value="manage-restaurant">
       <ManageRestaurantForm
-        // restaurant={restaurant}
+        restaurant={restaurant}
         onSave={createRestaurant}
         isLoading={isCreateLoading || isUpdateLoading}
       />
