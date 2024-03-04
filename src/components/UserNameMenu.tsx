@@ -9,11 +9,15 @@ import { CircleUserRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const UserNameMenu = () => {
   const { user, logout } = useAuth0();
-
 
   return (
     <DropdownMenu>
@@ -23,13 +27,26 @@ const UserNameMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
+          <Link
+            to="/manage-restaurant"
+            className="font-bold hover:text-orange-500"
+          >
+            Manage Restaurant
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Link to="/user-profile" className="font-bold hover:text-orange-500">
             User Profile
           </Link>
         </DropdownMenuItem>
         <Separator />
         <DropdownMenuItem>
-            <Button className="flex flex-1 font-bold bg-orange-500" onClick={() => logout()}>Log Out</Button>
+          <Button
+            className="flex flex-1 font-bold bg-orange-500"
+            onClick={() => logout()}
+          >
+            Log Out
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
