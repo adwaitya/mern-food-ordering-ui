@@ -1,4 +1,5 @@
 import { useSearchRestaurants } from "@/api/SearchApi";
+import CuisineFilter from "@/components/CuisineFilter";
 import PaginationSelector from "@/components/PaginationSelector";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import SearchResultCard from "@/components/SearchResultCard";
@@ -22,6 +23,22 @@ const SearchPage = () => {
     sortOption: "bestMatch",
   });
   const { results, isLoading } = useSearchRestaurants(searchState, city);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const setSelectedCusines = (selectedCuisines: string[]) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      selectedCuisines,
+      page: 1,
+    }));
+  };
+
+  const setSortOption = (sortOption: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      sortOption
+    }));
+  }
 
   const setPage = (page: number) => {
     setSearchState((prevState) => ({ ...prevState, page }));
@@ -30,7 +47,7 @@ const SearchPage = () => {
     setSearchState((prevState) => ({
       ...prevState,
       searchQuery: searchFormData.searchQuery,
-      page:1
+      page: 1,
     }));
   };
 
@@ -38,7 +55,7 @@ const SearchPage = () => {
     setSearchState((prevState) => ({
       ...prevState,
       searchQuery: "",
-      page:1
+      page: 1,
     }));
   };
 
@@ -51,7 +68,14 @@ const SearchPage = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div id="cuisines-list">Insert cuisines here</div>
+      <div id="cuisines-list">
+        <CuisineFilter
+          selectedCuisines={searchState.selectedCuisines}
+          onChange={setSelectedCusines}
+          isExpanded={isExpanded}
+          onExpandedClick={() => setIsExpanded(!isExpanded)}
+        />
+      </div>
       <div id="main-content" className="flex flex-col gap-5">
         <SearchBar
           searchQuery={searchState.searchQuery}
@@ -61,7 +85,7 @@ const SearchPage = () => {
         />
         <div className="flex justify-between flex-col gap-3 lg:flex-row">
           <SearchResultInfo total={results.pagination.total} city={city} />
-          <SortOptionDropdown />
+          <SortOptionDropdown sortOption={searchState.sortOption} onChange={setSortOption}/>
         </div>
         {results.data.map((restaurant) => (
           <SearchResultCard restaurant={restaurant} />
